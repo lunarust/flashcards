@@ -1,0 +1,97 @@
+html,
+body {
+  font-size: 16px;
+  font-family: Noto Sans;
+  color: #595959;
+  height: 100vh;
+}
+main {
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  //place-items: center;
+  //position: absolute;
+  //display: block;
+  top: 150px;
+  //left: 50%;
+  //transform: translate(-50%, -50%);
+  padding-bottom: 180px;
+  height: 100vh;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Update CSS variables */
+  }
+}
+tr:hover{
+  color: #36454F;
+  background-color: #c8c8c8;
+  //box-shadow:0 4px 8px 0 rgba(0,0,0,0.6);
+}
+section {
+  width: 50%;
+  display: block;
+  left: 800px;
+  top: 0px;
+}
+aside { // left side menu or list
+  font-size: 12px;
+  overflow: auto;
+  width: 40%;
+  height: 80%;
+  overflow: auto;
+  display: block;
+}
+#details{
+  top: 80px;
+  position: absolute;
+  z-index: 10;
+  left: 42%;
+  width: 50%;
+  height: 800px;
+  display: block;
+}
+
+#content {
+  top: 150px;
+  height: 100vh;
+
+}
+[data-theme=dark],
+.theme-dark {
+  /* Update CSS variables */
+}
+p {
+    padding: 0px;
+    marging: 0px;
+}
+tr:hover{
+  color: #36454F;
+  background-color: #c8c8c8;
+  //box-shadow:0 4px 8px 0 rgba(0,0,0,0.6);
+}
+.card-content {
+  font-size: x-large;
+}
+.title {
+
+}
+.card {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.card-header {
+    justify-content: center;
+    padding: 10px 0px;
+}
+footer{
+  padding: 2rem 1rem 2rem !important;
+  vertical-align: middle;
+}
+.footer{
+  bottom: 0px;
+  width: 100%;
+  z-index: 0;
+}

@@ -1,0 +1,7 @@
+FROM rust_yew AS builder
+RUN cargo install --locked wasm-bindgen-cli trunk
+WORKDIR web
+COPY ../frontend/dist/ /web/
+COPY ./docker/serve.py /web/
+EXPOSE 8000
+CMD ["python3", "serve.py"]

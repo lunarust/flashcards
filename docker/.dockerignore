@@ -1,0 +1,6 @@
+# comment
+*/frontend/target/*
+*/*/temp*
+./backend/target/*
+./target/*
+*/frontend/pkg/*

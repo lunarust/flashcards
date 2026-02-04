@@ -1,0 +1,40 @@
+services:
+  sandbox_mysql:
+    image: mysql:latest
+    container_name: sandbox_mysql
+    ports:
+      - 3306:3306
+    restart: always
+    networks:
+      - flashcards_nw
+    environment:
+      - MYSQL_ROOT_PASSWORD=mywonderfulpassword
+    volumes:
+      - "/opt/sandbox_data/:/var/lib/mysql"
+
+  flashcards_backend:
+    image: flashcards_be:latest
+    container_name: flashcards_backend
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=mysql://root:POTATO@sandbox_mysql:3306/flashcards
+    networks:
+      - flashcards_nw
+    depends_on:
+      - sandbox_mysql
+
+  flashcards_frontend:
+    image: flashcards_fe:latest
+    container_name: flashcards_frontend
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+    networks:
+    - flashcards_nw
+
+
+networks:
+  flashcards_nw:
+    external: true

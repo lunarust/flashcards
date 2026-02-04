@@ -1,0 +1,2 @@
+FROM rust:latest AS builder
+RUN cargo install --locked wasm-bindgen-cli trunk

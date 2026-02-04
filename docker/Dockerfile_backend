@@ -1,0 +1,4 @@
+FROM rust:latest AS runtime
+COPY ../backend/target/release ./
+EXPOSE 9000
+ENTRYPOINT ["./backend", "start"]
