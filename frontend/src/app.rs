@@ -21,7 +21,7 @@ pub enum Route {
     NotFound,
     #[at("/form")]
     Form,
-    #[at("/dictionay")]
+    #[at("/dictionary")]
     Dictionary,
     #[at("/random")]
     RandomSerie,

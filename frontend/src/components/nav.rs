@@ -23,8 +23,7 @@ pub fn Nav() -> Html {
                 <h1 class="navbar-item is-size-3">{ "FlashCards" }</h1>
                 <button class={classes!("navbar-burger", "burger", active_class)}
                     aria-label="menu" aria-expanded="false"
-                    onclick={toggle_navbar}
-                >
+                    onclick={toggle_navbar}>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -32,9 +31,9 @@ pub fn Nav() -> Html {
             </div>
             <div class={classes!("navbar-menu", active_class)}>
                 <div class="navbar-start">
-                    <Link<Route> classes={classes!("navbar-item")} to={Route::Home}>
+                    /*<Link<Route> classes={classes!("navbar-item")} to={Route::Home}>
                         { " Home " }
-                    </Link<Route>>
+                    </Link<Route>>*/
 
                     <Link<Route> classes={classes!("navbar-item")} to={Route::RandomSerie}>
                         { " Random " }

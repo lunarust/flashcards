@@ -7,6 +7,7 @@ use gloo_net::http::Request;
 
 use common::{word::Word};
 //,word::TranslateRequest,word, language, language::Language};
+const BACKEND: &str = "http://localhost:9000";
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
@@ -152,7 +153,7 @@ impl RandomSerie {
         let link = ctx.link().clone();
         spawn_local(async move {
 
-            let fetched_words: Vec<Word> = Request::get("http://localhost:9000/random")
+            let fetched_words: Vec<Word> = Request::get(format!("{}/radndom", BACKEND).as_str())
                 .header("Content-Type", "application/json")
                 .send()
                 .await

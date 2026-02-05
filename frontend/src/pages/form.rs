@@ -9,6 +9,8 @@ use web_sys::HtmlInputElement;
 use common::{word::Word,word, language, language::Language};
 use crate::pages::subform::SubFormDisplay;
 
+const BACKEND: &str = "http://localhost:9000";
+
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub set: Vec<Word>,
@@ -219,7 +221,7 @@ impl Form {
         spawn_local(async move {
             let json_body = serde_json::to_string(&ws).unwrap();
 
-            let _ = Request::post("/api/v1/save")
+            let _ = Request::post(format!("{}/save", BACKEND).as_str())
                 .header("Content-Type", "application/json")
                 .body(json_body)
                 .expect("Failed to build request")
@@ -234,7 +236,7 @@ impl Form {
         spawn_local(async move {
             let json_body = serde_json::to_string(&w).unwrap();
 
-            let tw: Vec<Word> = Request::post("/api/v1/translate")
+            let tw: Vec<Word> = Request::post(format!("{}/translate", BACKEND).as_str())
                 .header("Content-Type", "application/json")
                 .body(json_body)
                 .expect("Failed to build request")

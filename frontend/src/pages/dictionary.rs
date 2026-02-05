@@ -8,6 +8,8 @@ use itertools::Itertools;
 use common::{word::Word,language, language::Language};
 use crate::pages::form::Form;
 
+const BACKEND: &str = "http://localhost:9000";
+
 #[derive(Properties, PartialEq)]
 pub struct Props {
 
@@ -158,7 +160,7 @@ impl Dictionary {
         let link = ctx.link().clone();
         spawn_local(async move {
 
-            let fetched_words: Vec<Word> = Request::get("http://localhost:9000/all")
+            let fetched_words: Vec<Word> = Request::get(format!("{}/all", BACKEND).as_str())
                 .header("Content-Type", "application/json")
                 .send()
                 .await
