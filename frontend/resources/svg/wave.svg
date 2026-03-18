@@ -1,0 +1,8 @@
+<!-- wave.svg -->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 50 Q 25 30, 40 50 T 70 50 T 100 50"
+        fill="none"
+        stroke="#abb1bf"
+        stroke-width="2"
+        stroke-linecap="round"/>
+</svg>

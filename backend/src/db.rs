@@ -2,7 +2,6 @@ use mysql::*;
 use mysql::prelude::*;
 use rand::Rng;
 use common::{word::Word};
-
 //const URL: &str = "mysql://myroot:mypotato@localhost:3306/flashcards";
 
 pub async fn update_words(words: Vec<Word>) -> Result<(), Box<dyn std::error::Error>> {
@@ -193,6 +192,8 @@ async fn get_serie(words: Vec<Word>) -> i32 {
     let res = conn.expect("REASON").query_first(query);
     res.unwrap().expect("REASON")
 }
+
+
 async fn get_db_url() -> Result<String, Box<dyn std::error::Error>> {
     dotenvy::dotenv().ok(); // Loads .env file
     Ok(std::env::var("DATABASE_URL")?)

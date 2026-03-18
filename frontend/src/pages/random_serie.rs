@@ -153,7 +153,7 @@ impl RandomSerie {
         let link = ctx.link().clone();
         spawn_local(async move {
 
-            let fetched_words: Vec<Word> = Request::get(format!("{}/radndom", BACKEND).as_str())
+            let fetched_words: Vec<Word> = Request::get(format!("{}/random", BACKEND).as_str())
                 .header("Content-Type", "application/json")
                 .send()
                 .await

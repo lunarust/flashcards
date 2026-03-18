@@ -18,7 +18,7 @@ pub fn Nav() -> Html {
     let active_class = if !*navbar_active { "is-active" } else { "" };
 
     html! {
-        <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-light" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <h1 class="navbar-item is-size-3">{ "FlashCards" }</h1>
                 <button class={classes!("navbar-burger", "burger", active_class)}
@@ -45,6 +45,10 @@ pub fn Nav() -> Html {
 
                     <Link<Route> classes={classes!("navbar-item")} to={Route::Dictionary}>
                         { " Dictionary " }
+                    </Link<Route>>
+
+                    <Link<Route> classes={classes!("navbar-item")} to={Route::Haiku}>
+                        { " Haiku " }
                     </Link<Route>>
 /*                    <div class="navbar-item has-dropdown is-hoverable">
                         <div class="navbar-link">

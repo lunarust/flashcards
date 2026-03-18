@@ -1,0 +1,9 @@
+<!-- grass.svg -->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 90 Q 40 50, 30 20
+           M50 90 Q 55 60, 70 25"
+        fill="none"
+        stroke="#abb1bf"
+        stroke-width="2"
+        stroke-linecap="round"/>
+</svg>

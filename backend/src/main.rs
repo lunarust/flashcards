@@ -4,7 +4,10 @@ use warp::{http::Method, Filter};
 
 mod handler;
 mod db;
+mod db_haiku;
+mod handler_haiku;
 mod generic;
+mod kanjiapi;
 
 #[tokio::main]
 async fn main() {
@@ -32,8 +35,23 @@ async fn main() {
             .and_then(handler::get_random_word)
         );
 
+    let haiku = warp::path!("haiku");
+    let kanjis = warp::path!("kanjis" / i32);
+
+    let haiku_routes = haiku
+        .and(warp::get())
+        .and_then(handler_haiku::fetch_haiku)
+        .or(haiku
+            .and(warp::post())
+            .and(warp::body::json())
+            .and_then(handler_haiku::save_haiku))
+        .or(kanjis
+            .and(warp::get())
+            .and_then(handler_haiku::fetch_kanji_by_haiku)
+    );
 
     let routes = words_routes
+        .or(haiku_routes)
         .with(
             warp::cors()
             .allow_origin("http://localhost")

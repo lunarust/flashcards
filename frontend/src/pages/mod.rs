@@ -4,3 +4,4 @@ pub mod form;
 pub mod subform;
 pub mod dictionary;
 pub mod random_serie;
+pub mod haiku_display;

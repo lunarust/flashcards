@@ -1,0 +1,25 @@
+<nav class="navbar is-transparent link-column" >
+<a class="tag is-transparent" href="#"
+onclick={
+        ctx.link().callback(move |_| Msg::RevealHiragana(l.order.clone()))
+}
+>{"あ"}</a>
+
+<a class="tag is-transparent" href="#"
+onclick={
+    ctx.link().callback(move |_| Msg::RevealRomaji(l.order))
+}
+>{"a"}</a>
+
+<a class="tag is-transparent" href="#"
+onclick={
+    ctx.link().callback(move |_| Msg::RevealMeaning(l.order))
+}
+>{"?"}</a>
+
+<a class="tag is-transparent" href="#"
+onclick={
+    ctx.link().callback(move |_| Msg::RevealAll(l.order))
+}
+>{"all"}</a>
+</nav>

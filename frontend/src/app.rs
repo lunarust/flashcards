@@ -10,6 +10,7 @@ use crate::pages::home::Home;
 use crate::pages::dictionary::Dictionary;
 use crate::pages::random_serie::RandomSerie;
 use crate::pages::form::Form;
+use crate::pages::haiku_display::HaikuDisplay;
 use common::word;
 
 #[derive(Routable, PartialEq, Eq, Clone, Debug)]
@@ -25,6 +26,8 @@ pub enum Route {
     Dictionary,
     #[at("/random")]
     RandomSerie,
+    #[at("/haiku")]
+    Haiku,
 }
 #[function_component]
 pub fn App() -> Html {
@@ -134,6 +137,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::RandomSerie => {
             html! { <RandomSerie /> }
+        }
+        Route::Haiku => {
+            html! { <HaikuDisplay /> }
         }
     }
 }

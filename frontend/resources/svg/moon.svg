@@ -1,0 +1,7 @@
+<!-- moon.svg -->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M60 20
+           A30 30 0 1 0 60 80
+           A22 30 0 1 1 60 20"
+        fill="#abb1bf"/>
+</svg>
