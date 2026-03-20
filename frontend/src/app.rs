@@ -9,8 +9,12 @@ use crate::pages::page_not_found::PageNotFound;
 use crate::pages::home::Home;
 use crate::pages::dictionary::Dictionary;
 use crate::pages::random_serie::RandomSerie;
+
 use crate::pages::form::Form;
+
 use crate::pages::haiku_display::HaikuDisplay;
+use crate::pages::haiku_form::HaikuForm;
+
 use common::word;
 
 #[derive(Routable, PartialEq, Eq, Clone, Debug)]
@@ -28,6 +32,8 @@ pub enum Route {
     RandomSerie,
     #[at("/haiku")]
     Haiku,
+    #[at("/haikuform")]
+    HaikuForm,
 }
 #[function_component]
 pub fn App() -> Html {
@@ -140,6 +146,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::Haiku => {
             html! { <HaikuDisplay /> }
+        }
+        Route::HaikuForm => {
+            html! { <HaikuForm /> }
         }
     }
 }

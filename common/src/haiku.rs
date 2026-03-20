@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use serde_json;
+//use serde_json;
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
 pub struct Haiku {
@@ -21,6 +21,7 @@ pub struct HaikuLine {
     pub scene: String,
     pub order: i32,
     pub image: String,
+    pub alt: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Debug)]
@@ -50,8 +51,22 @@ impl Default for Haiku {
             title: "".to_string(),
             assigned: "".to_string(),
             created: "".to_string(),
-            haiku_line: [].to_vec(),
+            haiku_line: vec![HaikuLine::default()],
             deck: "".to_string(),
+        }
+    }
+}
+impl Default for HaikuLine {
+    fn default() -> Self {
+        Self {
+            line: "".to_string(),
+            reading: "".to_string(),
+            romaji: "".to_string(),
+            meaning: "".to_string(),
+            scene: "".to_string(),
+            order: 0,
+            image: "".to_string(),
+            alt: "".to_string(),
         }
     }
 }

@@ -1,0 +1,47 @@
+<svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: "Noto Serif JP", serif;
+      font-size: 28px;
+      background-color: #14161a;
+      fill: none;
+      stroke: #14161a;
+      stroke-width: 1;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: draw 2s ease forwards;
+    }
+    .line1b {
+      animation-delay: 0.6s;
+    }
+    .line2 {
+      animation-delay: 1.8s;
+    }
+
+    .line3 {
+      animation-delay: 3.6s;
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+
+  <!-- Line 1 -->
+  <text x="40" y="150" text-anchor="middle" writing-mode="vertical-rl">
+    古池
+  </text>
+  <text class="line1b" x="40" y="220" text-anchor="end" writing-mode="vertical-rl">や</text>
+  <!-- Line 2 -->
+  <text x="120" y="150" class="line2" text-anchor="middle" writing-mode="vertical-rl">
+    蛙飛びこむ
+  </text>
+
+  <!-- Line 3 -->
+  <text x="200" y="150" class="line3" text-anchor="middle"  writing-mode="vertical-rl">
+    水の音
+  </text>
+
+</svg>

@@ -1,10 +1,11 @@
 use yew::prelude::*;
 use wasm_bindgen_futures::spawn_local;
-use wasm_bindgen::{JsCast, UnwrapThrowExt};
-use web_sys::{HtmlInputElement, InputEvent};
+//use wasm_bindgen::{JsCast, UnwrapThrowExt};
+//use web_sys::{HtmlInputElement, InputEvent};
 use gloo_net::http::Request;
 
 use common::{haiku::*};
+use crate::pages::haiku_svg::HaikuDraw;
 
 const BACKEND: &str = "http://localhost:9000";
 
@@ -19,6 +20,7 @@ pub struct HaikuDisplay {
     reveal_line_meaning: Vec::<i32>,
     is_hovered: bool,
     hovered_text: Kanji,
+    playit: bool,
 }
 pub enum Msg {
     PickedHaiku(Haiku, Vec<Kanji>),
@@ -27,6 +29,7 @@ pub enum Msg {
     RevealMeaning(i32),
     RevealAll(i32),
     MouseOver(Kanji),
+    DisplayAnimation(),
 }
 
 impl Component for HaikuDisplay {
@@ -43,6 +46,7 @@ impl Component for HaikuDisplay {
             reveal_line_meaning: vec![],
             is_hovered: false,
             hovered_text: Kanji::default(),
+            playit: true,
         }
     }
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -85,22 +89,58 @@ impl Component for HaikuDisplay {
                 self.hovered_text = txt;
                 true
             }
+            Msg::DisplayAnimation() => {
+                if self.playit { self.playit = false; }
+                else { self.playit = true; }
+                true
+            }
         }
     }
     fn view(&self, ctx: &Context<Self>) -> Html {
         let link = ctx.link();
+        let mut playitVisibility = "overlay_all_hidden";
+        let mut cardVisibility = "card_ok";
+        if self.playit {
+            playitVisibility = "overlay_all";
+            cardVisibility = "card_all_hidden";
+        }
+        else {
+            playitVisibility = "overlay_all_hidden";
+            cardVisibility = "card_ok";
+        }
+
+        let mut display_style = "display:none";
+
         let my_haiku = self.picked_haiku.clone();
         let my_kanjis = self.kanjis_list.clone();
         let my_kanji = self.hovered_text.clone();
 
-        let mut display_style = "display:none";
         let reveal_hiragana: Vec::<i32> = self.reveal_line.clone();
         let reveal_romaji: Vec::<i32> = self.reveal_line_romaji.clone();
         let reveal_line_meaning: Vec::<i32> = self.reveal_line_meaning.clone();
 
-
         html!{
-            <div class="container"><div class="column is-6"><div class="card">
+            <>
+            //<nav class="nav has-shadow">
+                <div class="nav-left-middle buttons are-medium">
+                    <button class="button"
+                    onclick={
+                    ctx.link().callback(move |_| Msg::DisplayAnimation())
+                    }>{ "🞂" }</button>
+                    </div>
+            //</nav>
+
+            <div class="container">
+
+
+            <div id={ format!("{}",  playitVisibility) }>
+                 <HaikuDraw lines={ my_haiku.haiku_line.clone() } />
+            //   <img src="./resources/haiku/basho.svg" alt={ my_haiku.title } width="600" height="800" />
+            </div>
+
+
+            <div id={cardVisibility} class="column is-6" >
+            <div class="card">
 
              <header class="card-header-title">
                 <p class="title is-6">
@@ -111,9 +151,7 @@ impl Component for HaikuDisplay {
              <div class="card-content" >
              <div class="haiku_container">
              for l in my_haiku.haiku_line.clone() {
-                <div class={format!("haiku_column {} has-text-light-95", l.image)}>
-
-//                <p class="haiku_column column has-text-light-95 haiku-line haiku-line::after frog::after">
+                <span class={format!("haiku_column {} has-text-light-95", l.image)}>
                     { for l.line.chars().map(|ch| {
                         let kanji = my_kanjis.iter().find(|k| k.char == ch);
 
@@ -129,14 +167,10 @@ impl Component for HaikuDisplay {
                             None => html! { <span>{ ch }</span> }
                         }
                     })}
-                    //<div class="haiku-line::after"> //{format!("haiku-line::after {}::after", l.image)}  />
-                   //     <hr class="haiku-line::after frog" />
-                   // </div>
-                <span>{ "  " }</span></div>
-
+                </span>// haiku_column
              }
-             </div>
-             </div>
+             </div> //haiku_container
+             </div> //card content
 
              <footer class="card-footer">
              <div class="footer_container_kanji_detail">
@@ -171,6 +205,7 @@ impl Component for HaikuDisplay {
                </span>
            }
            </div>
+           </>
         }
     }
 }

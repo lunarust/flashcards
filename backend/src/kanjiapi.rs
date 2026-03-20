@@ -41,6 +41,8 @@ pub async fn get_kanji_from_api(k: String) -> Devkanji {
     //let val: Value = serde_json::from_str(&doge).unwrap();
     dvk
 }
+
+//6399b2e841mshffb148503f7eeb7p1570c1jsn5ed39fc02847
 /*
 {"freq_mainichi_shinbun":223,
     "grade":1,

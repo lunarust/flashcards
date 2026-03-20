@@ -13,12 +13,12 @@ pub async fn insert_haiku(h: Haiku) -> Result<()> {
         .expect("DRAMA");
     let pool = Pool::new(url.as_str());
     let mut conn = pool?.get_conn()?;
-
+    println!("{:?}", h);
     // insert haiku
-    let _res = conn.exec_drop(
+    let res = conn.exec_drop(
         r"INSERT INTO flashcards.haiku
-            (author, title, assigned, created, deck_id)
-            SELECT :author, :title, null, :created, d.id
+            (author, title, created, deck_id)
+            SELECT :author, :title, IFNULL(:created, ''), d.id
             FROM flashcards.haiku_deck d
             WHERE d.name = :deck",
         params! {
@@ -28,12 +28,13 @@ pub async fn insert_haiku(h: Haiku) -> Result<()> {
             "deck" => h.deck.clone(),
         }
     )?;
+    println!("HAIKU: {:?}", res);
 
     // loop in lines
-    let _res = conn.exec_batch(
+    let reshl = conn.exec_batch(
         r"INSERT INTO flashcards.haiku_lines
-        (haiku_id, line, reading, romaji, meaning, scene, place, image)
-        SELECT h.id, :line, :reading, :romaji, :meaning, :scene, :place, :image
+        (haiku_id, line, reading, romaji, meaning, scene, place, image, alt)
+        SELECT h.id, :line, :reading, :romaji, :meaning, :scene, :place, :image, :alt
         FROM flashcards.haiku h
         WHERE author = :author AND title = :title;",
         h.haiku_line.iter().map(|hl| params! {
@@ -46,8 +47,10 @@ pub async fn insert_haiku(h: Haiku) -> Result<()> {
             "image" => hl.image.clone(),
             "author" => h.author.clone(),
             "title" => h.title.clone(),
+            "alt" => hl.alt.clone(),
         })
     )?;
+    println!("HAIKU Lines: {:?}", reshl);
 
     // loop in kanji
     let mut kanji_to_insert: Vec<Kanji> = vec![];
@@ -69,14 +72,14 @@ pub async fn insert_haiku(h: Haiku) -> Result<()> {
                         char: kd.kanji.chars().next().expect("string is empty"),
                         meaning: kd.heisig_en,
                         strokes: kd.stroke_count,
-                        comment: format!("JLPT level {:?}", kd.jlpt.unwrap()),
+                        comment: format!("JLPT level {:?}", kd.jlpt.unwrap_or(0)),
                         radical: "".to_string(),
                     }
                 );
             }
         }
     }
-    let _res = conn.exec_batch("
+    let resk = conn.exec_batch("
         INSERT INTO flashcards.kanji
             (kanji, meaning, strokes, comment)
         VALUES(:kanji, :meaning, :strokes, :comment)",
@@ -87,6 +90,7 @@ pub async fn insert_haiku(h: Haiku) -> Result<()> {
             "comment" => k.comment.clone(),
         })
     );
+    println!("Kanji: {:?}", resk);
 
     Ok(())
 }
@@ -171,11 +175,11 @@ async fn run_query_haiku(query: String) -> Result<Haiku> {
         h.deck = r.5;
     }
 
-    let query_line = format!("SELECT line, reading, romaji, meaning, scene, place, image
+    let query_line = format!("SELECT line, reading, romaji, meaning, scene, place, image, IFNULL(alt, '') as alt
     FROM haiku_lines
     WHERE haiku_id = {}", h.id);
 
-    let result_line:Vec<(String, String, String, String, String, i32, String)> = conn.query(query_line)?;
+    let result_line:Vec<(String, String, String, String, String, i32, String, String)> = conn.query(query_line)?;
     let mut hls: Vec<HaikuLine> = vec![];
     for rl in result_line {
         hls.push(
@@ -187,6 +191,7 @@ async fn run_query_haiku(query: String) -> Result<Haiku> {
                 scene: rl.4,
                 order: rl.5,
                 image: rl.6,
+                alt: rl.7,
             }
         )
     }

@@ -47,9 +47,18 @@ pub fn Nav() -> Html {
                         { " Dictionary " }
                     </Link<Route>>
 
-                    <Link<Route> classes={classes!("navbar-item")} to={Route::Haiku}>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <div class="navbar-link">
+                        <Link<Route> classes={classes!("navbar-item")} to={Route::Haiku}>
                         { " Haiku " }
-                    </Link<Route>>
+                        </Link<Route>>
+                        </div>
+                        <div class="navbar-dropdown">
+                            <Link<Route> classes={classes!("navbar-item")} to={Route::HaikuForm}>
+                                { "New Haiku" }
+                            </Link<Route>>
+                        </div>
+                    </div>
 /*                    <div class="navbar-item has-dropdown is-hoverable">
                         <div class="navbar-link">
                             { "⚙" }

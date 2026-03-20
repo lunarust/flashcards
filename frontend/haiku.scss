@@ -1,0 +1,87 @@
+
+.kanji_detail {
+  font-size: 1.2rem;
+  top: 50px;
+  //right: 20%;
+
+  left: 900px;
+  position: relative;
+}
+.haiku_container {
+  display: flex;
+  gap: 6rem;
+  width: 100%;
+}
+
+.pointing{
+  cursor: pointer;
+}
+
+.haiku_column {
+  writing-mode: vertical-rl;
+  font-size: 5rem;
+
+}
+.haiku_column::after {
+  content: "";
+  position: absolute;
+  //right: 0;
+  //top: 0;
+  bottom: 0px;
+  width: 26px;
+  height: 10%;
+  opacity: 0.40;              /* key for subtlety */
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+  //border: 2px solid darkred;
+}
+.wave::after {
+  background-image: url("./resources/svg/scene/wave.svg");
+
+}
+.grass::after {
+  background-image: url("./resources/svg/scene/grass.svg");
+
+}
+.frog::after {
+  background-image: url("./resources/svg/scene/frog.svg");
+
+}
+.moon::after {
+  background-image: url("./resources/svg/scene/moon.svg");
+}
+
+
+.dek {
+  position: absolute;
+  bottom: 5px;
+  flex-direction: row;
+}
+.footer_container_kanji_detail {
+  margin: 10px;
+}
+.footer_kanji_detail {
+ // position: relative;
+  display: flex;
+  gap: 10rem;
+  flex-direction: row;
+}
+#overlay_all_hidden {
+  display: none;
+  visibility: hidden;
+}
+#overlay_all {
+  position:   fixed;
+  z-index:    99;
+  top:        65px;
+  //right:       60px;
+  margin-left: 100px;
+  width: 660px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #14161a;
+  box-shadow: 10px 0 5px -2px #000;
+
+}

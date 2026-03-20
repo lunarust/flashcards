@@ -5,3 +5,6 @@ pub mod subform;
 pub mod dictionary;
 pub mod random_serie;
 pub mod haiku_display;
+pub mod haiku_form;
+pub mod haiku_line_form;
+pub mod haiku_svg;
