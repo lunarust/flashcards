@@ -123,7 +123,7 @@ impl Component for Dictionary {
                             html! {
                                 <tr
                                     onclick={ctx.link().callback(move |_| Msg::SelectSerie(row_words.clone()))}
-                                    class={if is_selected { "is-selected" } else { "" }}
+                                    class={if is_selected { "tr-selected" } else { "" }}
                                 >
                                     <td>{ serie }</td>
                                     {

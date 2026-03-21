@@ -3,10 +3,8 @@ use wasm_bindgen_futures::spawn_local;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
 use web_sys::{HtmlInputElement, InputEvent};
 use gloo_net::http::Request;
-//use itertools::Itertools;
 
 use common::{word::Word};
-//,word::TranslateRequest,word, language, language::Language};
 const BACKEND: &str = "http://localhost:9000";
 
 #[derive(Properties, PartialEq)]
@@ -14,7 +12,6 @@ pub struct Props {
 
 }
 pub struct RandomSerie {
-    //words: Vec<Word>,
     picked_serie: Vec<Word>,
     //picked_lang: Language,
     display: String,
@@ -52,6 +49,7 @@ impl Component for RandomSerie {
         match msg {
             Msg::MoveNext() => {
                 Self::fetch_words(ctx);
+                self.result = false;
                 true
             }
             Msg::PickSerie(words) => {
@@ -93,12 +91,12 @@ impl Component for RandomSerie {
         if self.reveal { display_style = ""; }
         //let word_to_search = self.picked_serie.iter().find(|&x| x.language.iso == "EL").unwrap();
         html! {
-            <div class="container"><div class="column is-4">
+            <div class="container">
+            <div id="card_ok" class="column is-6">
             <div class="card">
              <header class="card-header">
-
                if self.result { <p class="card-header-title">{ " Congratulation " }</p> }
-               else { <p class="card-header-title">{ " Do try... " }</p> }
+               else { <p class="card-header-title">{ " Give it a go... " }</p> }
 
                <button class="card-header-icon" aria-label="more options">
                  <span class="icon">
@@ -106,24 +104,25 @@ impl Component for RandomSerie {
                  </span>
                </button>
              </header>
+
              <div class="card-content">
-               <p class="is-size-1 has-text-success">
+               <p class="text-highlighted">
                  { self.display.clone() }
                </p>
                <div class="content" >
-                <span
-                style={display_style}
-                >
-                    for w in self.picked_serie.clone() {
-                            <p>{ w.language.name }{ " - " }{ w.name }</p>
-                    }
-                    </span>
+                <span style={display_style}>
+                for w in self.picked_serie.clone() {
+                    <p>{ w.language.name }{ " - " }{ w.name }</p>
+                }
+                </span>
                </div>
              </div>
+
              <footer class="card-footer">
                     <input
                         placeholder="Translate it..."
                         class="input is-normal"
+                        value={ self.attempt.clone() }
                         oninput={ edit_translation }
                     />
                <a href="#" class="card-footer-item"
@@ -131,17 +130,19 @@ impl Component for RandomSerie {
                        ctx.link().callback(move |_| Msg::CheckTranslation())
                   }
                >{"✔"}</a>
-               //
+
                <a href="#" class="card-footer-item"
                   onclick={
                        ctx.link().callback(move |_| Msg::ShowTranslation())
                   }
                >{"🤔"}</a>
-               <a href="#" class="card-footer-item"
+
+               <a href="#" class="card-footer-item is-info"
                   onclick={
                        ctx.link().callback(move |_| Msg::MoveNext())
                   }
-               >{"➤"}</a>
+               >{"🞂"}</a>
+
              </footer>
             </div>
             </div></div>

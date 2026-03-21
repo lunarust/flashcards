@@ -98,15 +98,15 @@ impl Component for HaikuDisplay {
     }
     fn view(&self, ctx: &Context<Self>) -> Html {
         let link = ctx.link();
-        let mut playitVisibility = "overlay_all_hidden";
-        let mut cardVisibility = "card_ok";
+        let mut playit_visibility = "overlay_all_hidden";
+        let mut card_visibility = "card_ok";
         if self.playit {
-            playitVisibility = "overlay_all";
-            cardVisibility = "card_all_hidden";
+            playit_visibility = "overlay_all";
+            card_visibility = "card_all_hidden";
         }
         else {
-            playitVisibility = "overlay_all_hidden";
-            cardVisibility = "card_ok";
+            playit_visibility = "overlay_all_hidden";
+            card_visibility = "card_ok";
         }
 
         let mut display_style = "display:none";
@@ -132,14 +132,13 @@ impl Component for HaikuDisplay {
 
             <div class="container">
 
-
-            <div id={ format!("{}",  playitVisibility) }>
+            <div id={ format!("{}",  playit_visibility) }>
                  <HaikuDraw lines={ my_haiku.haiku_line.clone() } />
             //   <img src="./resources/haiku/basho.svg" alt={ my_haiku.title } width="600" height="800" />
             </div>
 
 
-            <div id={cardVisibility} class="column is-6" >
+            <div id={card_visibility} class="column is-6" >
             <div class="card">
 
              <header class="card-header-title">
@@ -159,7 +158,7 @@ impl Component for HaikuDisplay {
                             Some(k) => {
                                 let k = k.clone();
                                 html! {
-                                    <span class="pointing" onmouseover={ctx.link().callback(move |_| Msg::MouseOver(k.clone()))}>
+                                    <span class="haiku_pointing" onmouseover={ctx.link().callback(move |_| Msg::MouseOver(k.clone()))}>
                                         { ch }
                                     </span>
                                 }

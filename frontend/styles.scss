@@ -23,11 +23,7 @@ main {
     /* Update CSS variables */
   }
 }
-tr:hover{
-  color: #36454F;
-  background-color: #c8c8c8;
-  //box-shadow:0 4px 8px 0 rgba(0,0,0,0.6);
-}
+
 section {
   width: 50%;
   display: block;
@@ -67,6 +63,14 @@ p {
 }
 tr:hover{
   color: #36454F;
-  background-color: #c8c8c8;
-  //box-shadow:0 4px 8px 0 rgba(0,0,0,0.6);
+  background-color: #d65c99;
+}
+.tr-selected {
+  background-color: #b72e73;
+}
+a {
+  color: #36454F;
+}
+a:hover {
+  color: #b72e73;
 }

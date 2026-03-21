@@ -14,6 +14,7 @@ use crate::pages::form::Form;
 
 use crate::pages::haiku_display::HaikuDisplay;
 use crate::pages::haiku_form::HaikuForm;
+use crate::pages::haikus::Haikus;
 
 use common::word;
 
@@ -32,6 +33,8 @@ pub enum Route {
     RandomSerie,
     #[at("/haiku")]
     Haiku,
+    #[at("/haikus")]
+    Haikus,
     #[at("/haikuform")]
     HaikuForm,
 }
@@ -149,6 +152,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::HaikuForm => {
             html! { <HaikuForm /> }
+        }
+        Route::Haikus => {
+            html! { <Haikus /> }
         }
     }
 }

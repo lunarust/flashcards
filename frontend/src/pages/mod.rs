@@ -8,3 +8,4 @@ pub mod haiku_display;
 pub mod haiku_form;
 pub mod haiku_line_form;
 pub mod haiku_svg;
+pub mod haikus;

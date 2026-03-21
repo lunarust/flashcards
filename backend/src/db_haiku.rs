@@ -1,10 +1,9 @@
 use mysql::*;
 use mysql::prelude::*;
-use rand::Rng;
-
 
 use common::haiku::{Haiku, HaikuLine, Kanji};
-use super::kanjiapi::{Devkanji,*};
+//use super::kanjiapi::{Devkanji,*};
+use crate::kanjiapi::get_kanji_from_api;
 
 
 pub async fn insert_haiku(h: Haiku) -> Result<()> {
@@ -174,10 +173,19 @@ async fn run_query_haiku(query: String) -> Result<Haiku> {
         h.created = r.4;
         h.deck = r.5;
     }
+    h.haiku_line = run_query_haiku_line(h.id).await.unwrap();
+    Ok(h)
+}
+async fn run_query_haiku_line(id: i32) -> Result<Vec<HaikuLine>> {
+    let url: String = get_db_url()
+        .await
+        .expect("DRAMA");
 
+    let pool = Pool::new(url.as_str());
+    let mut conn = pool?.get_conn()?;
     let query_line = format!("SELECT line, reading, romaji, meaning, scene, place, image, IFNULL(alt, '') as alt
     FROM haiku_lines
-    WHERE haiku_id = {}", h.id);
+    WHERE haiku_id = {}",id);
 
     let result_line:Vec<(String, String, String, String, String, i32, String, String)> = conn.query(query_line)?;
     let mut hls: Vec<HaikuLine> = vec![];
@@ -195,9 +203,39 @@ async fn run_query_haiku(query: String) -> Result<Haiku> {
             }
         )
     }
-    h.haiku_line = hls;
+    //    h.haiku_line = hls;
+    Ok(hls)
 
-    Ok(h)
+}
+pub async fn get_all_haikus() -> Vec<Haiku> {
+    let query = "SELECT h.id, h.author, title, IFNULL(assigned, '') as assigned, IFNULL(created, '') as created, d.name as deck
+        FROM haiku h
+        INNER JOIN haiku_deck d ON (d.id = h.deck_id)
+        ORDER BY h.id;";
+    let url: String = get_db_url()
+        .await
+        .expect("DRAMA");
+
+    let pool = Pool::new(url.as_str());
+    let mut conn = pool.expect("REASON").get_conn();
+    let result:Vec<(i32, String, String, String, String, String)> = conn.expect("REASON").query(query).expect("REASON");
+    let mut h: Vec<Haiku> = vec![];
+
+    for r in result {
+        let hl: Vec<HaikuLine> = run_query_haiku_line(r.0).await.expect("REASON");
+
+        h.push(
+            Haiku {
+            id: r.0,
+            author: r.1,
+            title: r.2,
+            assigned: r.3,
+            created: r.4,
+            deck: r.5,
+            haiku_line: hl,}
+        )
+    }
+    h
 }
 async fn get_total_haiku() -> i32 {
     let url: String = get_db_url()

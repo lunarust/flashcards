@@ -1,5 +1,7 @@
 .container {
-top: 0; }
+  top: 0;
+}
+
 #card_all_hidden {
   display: none;
   visibility: hidden;
@@ -10,8 +12,8 @@ top: 0; }
 }
 .card {
     max-width: 800px;
-    margin: 0 auto;
-    top:        65px;
+    margin:    0 auto;
+    top:       65px;
 
 }
 
@@ -34,4 +36,11 @@ footer{
   height: 100%;
   position: relative;
   //background-color: green;
+}
+
+// Random serie
+.text-highlighted {
+  color: #d65cb8;
+  font-weight: bolder;
+  font-size: 4rem;
 }

@@ -54,6 +54,9 @@ pub fn Nav() -> Html {
                         </Link<Route>>
                         </div>
                         <div class="navbar-dropdown">
+                            <Link<Route> classes={classes!("navbar-item")} to={Route::Haikus}>
+                                { "All Haiku" }
+                            </Link<Route>>
                             <Link<Route> classes={classes!("navbar-item")} to={Route::HaikuForm}>
                                 { "New Haiku" }
                             </Link<Route>>

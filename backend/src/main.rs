@@ -37,6 +37,7 @@ async fn main() {
 
     let haiku = warp::path!("haiku");
     let kanjis = warp::path!("kanjis" / i32);
+    let haikus = warp::path!("haikus");
 
     let haiku_routes = haiku
         .and(warp::get())
@@ -47,8 +48,10 @@ async fn main() {
             .and_then(handler_haiku::save_haiku))
         .or(kanjis
             .and(warp::get())
-            .and_then(handler_haiku::fetch_kanji_by_haiku)
-    );
+            .and_then(handler_haiku::fetch_kanji_by_haiku))
+        .or(haikus
+            .and(warp::get())
+            .and_then(handler_haiku::fetch_all_haikus));
 
     let routes = words_routes
         .or(haiku_routes)

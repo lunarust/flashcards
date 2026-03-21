@@ -13,8 +13,11 @@
   width: 100%;
 }
 
-.pointing{
+.haiku_pointing{
   cursor: pointer;
+}
+.haiku_pointing:hover {
+  color: #d6d9e0;
 }
 
 .haiku_column {
