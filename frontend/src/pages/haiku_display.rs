@@ -200,7 +200,7 @@ impl Component for HaikuDisplay {
                     { "Meaning: " }{ my_kanji.meaning }<br />
                     { "Strokes: " }{ my_kanji.strokes }<br />
                     { "Radical: "}{ my_kanji.radical }<br />
-                    <a href={format!("https://jisho.org/search/{}%20%23kanji", my_kanji.char)} target="_blank">{"🔗 Jisho"}</a>
+                    <a href={format!("https://jisho.org/search/{}%20%23kanji", my_kanji.char)} target="_blank">{"> Jisho"}</a>
                </span>
            }
            </div>
