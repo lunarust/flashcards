@@ -74,6 +74,13 @@ pub fn App() -> Html {
                         alt="GitHub"
                         width="24"
                         height="24" /></a></span>
+
+                    <span class="footer_icon">
+                      <img
+                        src="./resources/logo.svg"
+                        alt="Kappa"
+                        width="30"
+                        height="28" /></span>
                 </div>
             </footer>
 
