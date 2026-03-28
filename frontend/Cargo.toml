@@ -3,6 +3,9 @@ name = "function_router"
 version = "0.1.0"
 edition = "2021"
 
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz", "--enable-mutable-globals"]
+
 [dependencies]
 common = { version = "0.1.0", path = "../common" }
 
