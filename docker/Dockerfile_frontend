@@ -1,4 +1,4 @@
-FROM rust_yew AS builder
+FROM 192.168.1.217:5000/rust_yew AS builder
 RUN cargo install --locked wasm-bindgen-cli trunk
 WORKDIR web
 COPY ../frontend/dist/ /web/
