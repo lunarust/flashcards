@@ -58,6 +58,7 @@ async fn main() {
         .with(
             warp::cors()
             .allow_origin("http://localhost")
+            .allow_origin("http://tanit.greece.local:8002/")
             .allow_methods(&[
                 Method::OPTIONS,
                 Method::GET,
