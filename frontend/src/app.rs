@@ -83,6 +83,7 @@ pub fn App() -> Html {
                         width="15"
                         height="24" />
                     </a></span>
+
                     <span class="footer_icon">
                       <img
                         src="./resources/kaoru.png"
