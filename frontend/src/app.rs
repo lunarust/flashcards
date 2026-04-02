@@ -96,8 +96,8 @@ pub fn App() -> Html {
               <img
                 src="./resources/kaoru.png"
                 alt="Kaoru"
-                width="55"
-                height="50" /></span>
+                width="75"
+                height="68" /></span>
             </div>
 
         </BrowserRouter>
