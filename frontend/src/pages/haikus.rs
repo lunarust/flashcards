@@ -3,7 +3,7 @@ use wasm_bindgen_futures::spawn_local;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
 use web_sys::{HtmlInputElement, InputEvent};
 use gloo_net::http::Request;
-use itertools::Itertools;
+//use itertools::Itertools;
 
 use common::haiku::*;
 

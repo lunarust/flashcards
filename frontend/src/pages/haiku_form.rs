@@ -2,7 +2,7 @@ use yew::prelude::*;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
 use wasm_bindgen_futures::spawn_local;
 use gloo_net::http::Request;
-use log::info;
+//use log::info;
 use web_sys::HtmlInputElement;
 
 use common::{haiku::*};
@@ -32,11 +32,11 @@ impl Component for HaikuForm {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(ctx: &Context<Self>) -> Self {
+    fn create(_ctx: &Context<Self>) -> Self {
         Self { new_haiku: Haiku::default()
         }
     }
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::SaveHaiku() => {
                 let my_haiku = self.new_haiku.clone();
@@ -71,9 +71,8 @@ impl Component for HaikuForm {
     }
     fn view(&self, ctx: &Context<Self>) -> Html {
         let link = ctx.link();
-        let idx = 0;
         let new_haiku = self.new_haiku.clone();
-        let mut new_haiku_line = new_haiku.haiku_line.clone();
+        let new_haiku_line = new_haiku.haiku_line.clone();
 
 
        let edit_created = link.callback(|e: InputEvent| {

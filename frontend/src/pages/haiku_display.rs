@@ -15,19 +15,19 @@ pub struct Props {}
 pub struct HaikuDisplay {
     picked_haiku: Haiku,
     kanjis_list: Vec<Kanji>,
-    reveal_line: Vec::<i32>,
-    reveal_line_romaji: Vec::<i32>,
-    reveal_line_meaning: Vec::<i32>,
+//    reveal_line: Vec::<i32>,
+//    reveal_line_romaji: Vec::<i32>,
+//    reveal_line_meaning: Vec::<i32>,
     is_hovered: bool,
     hovered_text: Kanji,
     playit: bool,
 }
 pub enum Msg {
     PickedHaiku(Haiku, Vec<Kanji>),
-    RevealHiragana(i32),
-    RevealRomaji(i32),
-    RevealMeaning(i32),
-    RevealAll(i32),
+//    RevealHiragana(i32),
+//    RevealRomaji(i32),
+//    RevealMeaning(i32),
+//    RevealAll(i32),
     MouseOver(Kanji),
     DisplayAnimation(),
 }
@@ -41,21 +41,22 @@ impl Component for HaikuDisplay {
         Self {
             picked_haiku: Haiku::default(),
             kanjis_list: vec![],
-            reveal_line: vec![],
-            reveal_line_romaji: vec![],
-            reveal_line_meaning: vec![],
+//            reveal_line: vec![],
+//            reveal_line_romaji: vec![],
+//            reveal_line_meaning: vec![],
             is_hovered: false,
             hovered_text: Kanji::default(),
             playit: true,
         }
     }
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::PickedHaiku(hai, kl) => {
                 self.picked_haiku = hai;
                 self.kanjis_list = kl;
                 true
             }
+            /*
             Msg::RevealHiragana(idx) => {
                 if ! self.reveal_line.contains(&idx) { self.reveal_line.push(idx); }
                 else {  self.reveal_line.retain(|value| *value != idx); }
@@ -81,6 +82,7 @@ impl Component for HaikuDisplay {
                 else {  self.reveal_line_meaning.retain(|value| *value != idx); }
                 true
             }
+            */
             Msg::MouseOver(txt) => {
                 //if self.is_hovered { self.is_hovered = false }
                 //else {
@@ -97,7 +99,8 @@ impl Component for HaikuDisplay {
         }
     }
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let link = ctx.link();
+        let _link = ctx.link();
+
         let mut playit_visibility = "overlay_all_hidden";
         let mut card_visibility = "card_ok";
         if self.playit {
@@ -109,15 +112,15 @@ impl Component for HaikuDisplay {
             card_visibility = "card_ok";
         }
 
-        let mut display_style = "display:none";
+        //let mut display_style = "display:none";
 
         let my_haiku = self.picked_haiku.clone();
         let my_kanjis = self.kanjis_list.clone();
         let my_kanji = self.hovered_text.clone();
 
-        let reveal_hiragana: Vec::<i32> = self.reveal_line.clone();
-        let reveal_romaji: Vec::<i32> = self.reveal_line_romaji.clone();
-        let reveal_line_meaning: Vec::<i32> = self.reveal_line_meaning.clone();
+        //let reveal_hiragana: Vec::<i32> = self.reveal_line.clone();
+        //let reveal_romaji: Vec::<i32> = self.reveal_line_romaji.clone();
+        //let reveal_line_meaning: Vec::<i32> = self.reveal_line_meaning.clone();
 
         html!{
             <>

@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use web_sys::HtmlInputElement;
+//use web_sys::HtmlInputElement;
 //use log::info;
 use common::{haiku::*};
 

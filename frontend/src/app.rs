@@ -6,9 +6,9 @@ use yew_router::prelude::*;
 
 use crate::components::nav::Nav;
 use crate::pages::page_not_found::PageNotFound;
-use crate::pages::home::Home;
+use crate::pages::home::RandomSerie;
 use crate::pages::dictionary::Dictionary;
-use crate::pages::random_serie::RandomSerie;
+//use crate::pages::random_serie::RandomSerie;
 
 use crate::pages::form::Form;
 
@@ -21,7 +21,7 @@ use common::word;
 #[derive(Routable, PartialEq, Eq, Clone, Debug)]
 pub enum Route {
     #[at("/")]
-    Home,
+    RandomSerie,
     #[not_found]
     #[at("/404")]
     NotFound,
@@ -29,8 +29,6 @@ pub enum Route {
     Form,
     #[at("/dictionary")]
     Dictionary,
-    #[at("/random")]
-    RandomSerie,
     #[at("/haiku")]
     Haiku,
     #[at("/haikus")]
@@ -69,7 +67,7 @@ pub fn App() -> Html {
                         height="24"
                         /></a></span>
 
-                    <span class="footer_icon"><a href="https://github.com/lunarust">
+                    <span class="footer_icon"><a href="https://github.com/lunarust/flashcards">
                       <img
                         src="./resources/GitHub_Invertocat_White.svg"
                         alt="GitHub"
@@ -86,19 +84,21 @@ pub fn App() -> Html {
 
                     <span class="footer_icon">
                       <img
-                        src="./resources/kaoru.png"
-                        alt="Kaoru"
-                        width="30"
-                        height="28" /></span>
-
-                    <span class="footer_icon">
-                      <img
                         src="./resources/logo.svg"
                         alt="Kappa"
                         width="30"
                         height="28" /></span>
                 </div>
             </footer>
+
+            <div id="logo">
+            <span class="footer_logo">
+              <img
+                src="./resources/kaoru.png"
+                alt="Kaoru"
+                width="55"
+                height="50" /></span>
+            </div>
 
         </BrowserRouter>
     }
@@ -157,8 +157,8 @@ pub fn ServerApp(props: &ServerAppProps) -> Html {
 
 fn switch(routes: Route) -> Html {
     match routes {
-        Route::Home => {
-            html! { <Home /> }
+        Route::RandomSerie => {
+            html! { <RandomSerie /> }
         }
         Route::NotFound => {
             html! { <PageNotFound /> }
@@ -168,9 +168,6 @@ fn switch(routes: Route) -> Html {
         }
         Route::Dictionary => {
             html! { <Dictionary /> }
-        }
-        Route::RandomSerie => {
-            html! { <RandomSerie /> }
         }
         Route::Haiku => {
             html! { <HaikuDisplay /> }

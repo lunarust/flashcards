@@ -74,14 +74,19 @@ a:hover {
   height: 48px;
   z-index: 1;
   text-align: right;
-  //opacity: 0.6;
 }
 footer{
   padding: 1rem 2rem 1rem !important;
 }
 .footer_icon {
-  margin-left: 10px; margin-right: 10px;
+  margin-left: 10px; margin-right: 80px;
 }
 .footer_icon:hover {
   opacity: 1;
+}
+#logo{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 99;
 }
